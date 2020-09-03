@@ -36,4 +36,4 @@
 - [] Throwing angle adjustable through mainboard
 - [] Ball holder adjustable through mainboard
 - [] Team wiki page
-
+- [] Win the competition :)
