@@ -1,4 +1,4 @@
-#Contains all the tasks that are required to complete during the course
+# Contains the tasks that are required to complete during the course
 - [] Main board communication
 - [] Robot finds a ball
 - [] Robot finds basket with a ball
