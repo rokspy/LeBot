@@ -1,0 +1,39 @@
+#Contains all the tasks that are required to complete during the course
+- [] Main board communication
+- [] Robot finds a ball
+- [] Robot finds basket with a ball
+- [] Robot throws a ball
+- [] Robot can properly react to referee commands 
+- [] Code works on new robot
+- [] 3 of 11 balls in 60 seconds 
+- [] 5 of 11 balls in 60 seconds 
+- [] 2 of 5 balls with 6 balls outside
+- [] Dealing with opponent robot using 1 ball
+- [] Robot movable with remote controller 
+- [] Throwing range test
+- [] Ball holding test
+- [] Test robot thrower design completed
+- [] Test robot thrower fabricated
+- [] Test robot thrower mechanics assembled and attached to the robot
+- [] Omni wheels design completed
+- [] Motor mount design completed
+- [] Camera mount design completed
+- [] Ball thrower design completed
+- [] Adjustable ball throwing angle design completed
+- [] Ball holding thrower electronics attached and working 
+- [] Robot chassis design completed
+- [] Whole new robot fabricated
+- [] Mechanics assembled
+- [] Test robot thrower electronics attached and working 
+- [] Mainboard design completed
+- [] Mainboard soldered and working
+- [] Mainbaord firmware completed
+- [] Motor driver design completed
+- [] Motor drivers soldered and working 
+- [] Mainboard documented
+- [] Motor driver documented
+- [] Power path controller soldered and working 
+- [] Throwing angle adjustable through mainboard
+- [] Ball holder adjustable through mainboard
+- [] Team wiki page
+
