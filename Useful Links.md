@@ -7,3 +7,5 @@ https://pwir.ee/
 http://wiki.ros.org/ROS/Introduction
 
 https://pimylifeup.com/raspberry-pi-playstation-controllers/  Connecting raspi with ps4 controller
+
+https://github.com/IntelRealSense/realsense-ros
