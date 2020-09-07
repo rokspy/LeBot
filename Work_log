@@ -1,15 +1,15 @@
 Work log.
 
 Thu September 3rd.
-Introductory lecture.
+Introductory lecture (~2h)
 Showing classrooms and installations. Course intro and goals.
 
 Sat September 5th.
-Bootcamp day 1
+Bootcamp day 1 (8h)
 Workshops about Programming (OpenCV laptop camera demo with python), Electronics (Fusion360 on PCB design and some soldering) and Mechanics (Fusion360 on wheel motor design).
 
 Sun September 6th.
-Bootcamp day 2
+Bootcamp day 2 (8h)
 All team members participated on the trivia activity around the city. Final score achieved was 11 points.
 The team received a previous robot from the competition held in 2018. It only was of the body of the robot.
 Team provided with PC, camera Intel RealSense, x3 wheel motors + throwing motor with their corresponding motor controllers, x3 omni wheels, cables...
@@ -17,6 +17,7 @@ We began working on that robot with the initial task of checking mainboard commu
 Checking components, hterm used to test the motors, Ubuntu and TeamViewer installed in the PC, ROS installation (to be confirmed if finished and ready)
 
 Mon September 7th.
+(email sent by Reiko with documentation about battery management, comprehensive reading for them to check that we know how to use them, and then they'll give us our batteries)
 Seminar
 
 ??? September #th.
