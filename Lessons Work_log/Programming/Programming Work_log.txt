@@ -1,0 +1,15 @@
+ELECTRONICS WORK LOG
+====================
+
+
+Thursday 10th September
+
+Info from the lesson gathered in the link:
+https://digilabor.ut.ee/index.php/2020_PWiR_basketball_robot_guide
+Most of the time spent on recommending how to choose microcontrollers and motor drivers
+At the end some STM32G431KB building in Fusion360
+
+===
+
+
+===

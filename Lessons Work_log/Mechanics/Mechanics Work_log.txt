@@ -1,0 +1,22 @@
+MECHANICS WORK LOG
+==================
+
+
+
+Thursday 10th September
+
+https://digilabor.ut.ee/index.php/LiPo_Manual
+4x batteries
+4S (4 cells -> 5 cables: 4 for each cell and 1 common (black)), 1C, 3000mAh
+when charging, choose LiPo Balance (or Charge), and put 3.0A (3000mAh and 1C), and around 16V (4S)
+if you put more batteries charging (in parallel), the amperage has to increase (2 batteries in parallel, then 6.0A max, might be 5.0A)
+always somebody checking the charging!!! (instructors ask always about this, safety first!)
+around 80% charging is healthy (not too high, not too low)
+don't leave the indicator switched overnight, it might kill the battery
+(for more details check pictures 20200910_4xbatteries.jpeg and 20200910_battery_charging.jpeg for PowerSource tools and wiring configuration)
+
+===
+
+
+
+===

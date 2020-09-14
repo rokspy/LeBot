@@ -20,5 +20,12 @@ Mon September 7th.
 (email sent by Reiko with documentation about battery management, comprehensive reading for them to check that we know how to use them, and then they'll give us our batteries)
 Seminar
 
-??? September #th.
+Mondays and Thursdays => Lessons from 18:15 to 19:45
+2024 Programming, 2025 Mechanics, 2027 Electronics
+
+Mon September 14th.
+Team meeting before lessons
+First progress presentation https://digilabor.ut.ee/index.php/2020_PWiR_grading_and_tasks#Progress_blog_and_presentation
+
+
 Team-alone first meeting? Brainstorming, prep reading documentation from the wiki and from teams of previous years...
