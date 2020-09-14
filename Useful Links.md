@@ -13,3 +13,5 @@ https://pimylifeup.com/raspberry-pi-playstation-controllers/  Connecting raspi w
 https://github.com/IntelRealSense/realsense-ros
 
 https://app.slack.com/client/TM24UALCU/CLW8EGFAM
+
+https://deepbluembedded.com/stm32-timer-encoder-mode-stm32-rotary-encoder-interfacing/        STM32 encoder mode tutorial
