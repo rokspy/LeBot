@@ -9,3 +9,5 @@ Motor Driver requirements      https://digilabor.ut.ee/index.php/MC33886_driver_
 Main Board requirements      https://digilabor.ut.ee/index.php/Mbed_mainboard
 
 Power Path Controller requirements       https://digilabor.ut.ee/index.php/Power_path_control_board
+
+Wheel motor datasheet     https://www.pololu.com/file/0J1736/pololu-37d-metal-gearmotors-rev-1-2.pdf
