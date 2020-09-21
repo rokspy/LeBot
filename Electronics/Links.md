@@ -1,0 +1,11 @@
+# Useful Electronics Links
+
+STM32 encoder mode tutorial       https://deepbluembedded.com/stm32-timer-encoder-mode-stm32-rotary-encoder-interfacing/
+  
+STM32 USB tutorials      https://www.st.com/content/st_com/en/support/learning/stm32-education/stm32-moocs/STM32-USB-training.html
+
+Motor Driver requirements      https://digilabor.ut.ee/index.php/MC33886_driver_board
+
+Main Board requirements      https://digilabor.ut.ee/index.php/Mbed_mainboard
+
+Power Path Controller requirements       https://digilabor.ut.ee/index.php/Power_path_control_board
