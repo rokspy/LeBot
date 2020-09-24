@@ -179,7 +179,7 @@ PrinterOptions=Record=PrinterOptions|Copies=1|Duplex=1|TrueTypeOptions=3|Collate
 [OutputGroup3]
 Name=Documentation Outputs
 Description=
-TargetPrinter=Microsoft Print to PDF
+TargetPrinter=Virtual Printer
 PrinterOptions=Record=PrinterOptions|Copies=1|Duplex=1|TrueTypeOptions=3|Collate=1|PrintJobKind=1|PrintWhat=1
 OutputType1=Composite
 OutputName1=Composite Drawing
@@ -1006,6 +1006,24 @@ NetClassSeparateForBusSections=0
 SelectedOnly=0
 UpdateVariants=1
 PartTypes=0
+ComponentLibIdentifierKind0=Library Name And Type
+ComponentLibraryIdentifier0=Misc.SchLib
+ComponentDesignItemID0=MC33886PVW
+ComponentSymbolReference0=MC33886PVW
+ComponentUpdate0=1
+ComponentIsDeviceSheet0=0
+ComponentLibIdentifierKind1=Library Name And Type
+ComponentLibraryIdentifier1=SCH Pinhead.SchLib
+ComponentDesignItemID1=PIN_1x2
+ComponentSymbolReference1=PIN_1x2
+ComponentUpdate1=1
+ComponentIsDeviceSheet1=0
+ComponentLibIdentifierKind2=Library Name And Type
+ComponentLibraryIdentifier2=SCH Pinhead.SchLib
+ComponentDesignItemID2=PIN_1x4
+ComponentSymbolReference2=PIN_1x4
+ComponentUpdate2=1
+ComponentIsDeviceSheet2=0
 FullReplace=1
 UpdateDesignatorLock=1
 UpdatePartIDLock=1
@@ -1019,6 +1037,77 @@ RemoveParameters=0
 AddModels=1
 RemoveModels=1
 UpdateCurrentModels=1
+ParameterName0=Comment
+ParameterUpdate0=1
+ParameterName1=Component Kind
+ParameterUpdate1=1
+ParameterName2=ComponentLink1Description
+ParameterUpdate2=1
+ParameterName3=ComponentLink1URL
+ParameterUpdate3=1
+ParameterName4=ComponentLinknDescription
+ParameterUpdate4=1
+ParameterName5=ComponentLinknURL
+ParameterUpdate5=1
+ParameterName6=Datasheet Link
+ParameterUpdate6=1
+ParameterName7=Description
+ParameterUpdate7=1
+ParameterName8=Drawn By
+ParameterUpdate8=1
+ParameterName9=Farnell Order Nr.
+ParameterUpdate9=1
+ParameterName10=Height
+ParameterUpdate10=1
+ParameterName11=Library Reference
+ParameterUpdate11=1
+ParameterName12=Manufacturer
+ParameterUpdate12=1
+ParameterName13=Manufacturer_Name
+ParameterUpdate13=1
+ParameterName14=Manufacturer_Part_Number
+ParameterUpdate14=1
+ParameterName15=Mouser2 Part Number
+ParameterUpdate15=1
+ParameterName16=Mouser2 Price/Stock
+ParameterUpdate16=1
+ParameterName17=Part Number
+ParameterUpdate17=1
+ModelTypeGroup0=PCBLIB
+ModelTypeUpdate0=1
+ModelType0=PCBLIB
+ModelName0=1.27_1X2H
+ModelUpdate0=1
+ModelType1=PCBLIB
+ModelName1=1.27_1X2R
+ModelUpdate1=1
+ModelType2=PCBLIB
+ModelName2=1.27_1X4H
+ModelUpdate2=1
+ModelType3=PCBLIB
+ModelName3=1.27_1X4R
+ModelUpdate3=1
+ModelType4=PCBLIB
+ModelName4=2.54_1X2H
+ModelUpdate4=1
+ModelType5=PCBLIB
+ModelName5=2.54_1X2H_RA
+ModelUpdate5=1
+ModelType6=PCBLIB
+ModelName6=2.54_1X2R
+ModelUpdate6=1
+ModelType7=PCBLIB
+ModelName7=2.54_1X4H
+ModelUpdate7=1
+ModelType8=PCBLIB
+ModelName8=2.54_1X4H_RA
+ModelUpdate8=1
+ModelType9=PCBLIB
+ModelName9=2.54_1X4R
+ModelUpdate9=1
+ModelType10=PCBLIB
+ModelName10=SOIC127P1420X340-21N
+ModelUpdate10=1
 
 [DatabaseUpdateOptions]
 SelectedOnly=0
@@ -1032,4 +1121,7 @@ ComparisonOptions2=Kind=Component Class|MinPercent=75|MinMatch=3|ShowMatch=-1|Co
 ComparisonOptions3=Kind=Rule|MinPercent=75|MinMatch=3|ShowMatch=-1|Confirm=-1|UseName=-1|InclAllRules=0
 ComparisonOptions4=Kind=Differential Pair|MinPercent=50|MinMatch=1|ShowMatch=0|Confirm=0|UseName=0|InclAllRules=0
 ComparisonOptions5=Kind=Structure Class|MinPercent=75|MinMatch=3|ShowMatch=-1|Confirm=-1|UseName=-1|InclAllRules=0
+
+[SmartPDF]
+PageOptions=Record=PageOptions|CenterHorizontal=True|CenterVertical=True|PrintScale=1.00|XCorrection=1.00|YCorrection=1.00|PrintKind=1|BorderSize=5000000|LeftOffset=0|BottomOffset=0|Orientation=2|PaperLength=1000|PaperWidth=1000|Scale=100|PaperSource=7|PrintQuality=-3|MediaType=1|DitherType=10|PrintScaleMode=1|PaperKind=Letter|PaperIndex=1
 
