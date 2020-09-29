@@ -45,14 +45,14 @@ class MainBoardMovement:
         self.ser_write_wheel()
 
     def rotate_left(self, t):
-        self.update_wheel_speed(10, 0, 0)
+        self.update_wheel_speed(10, 10, 10)
         self.ser_write_wheel()
         self.sleep(t)
         self.wheel_speed_zero()
         self.ser_write_wheel()
 
     def rotate_right(self, t):
-        self.update_wheel_speed(0, 10, 0)
+        self.update_wheel_speed(-10, -10, -10)
         self.ser_write_wheel()
         self.sleep(t)
         self.wheel_speed_zero()
