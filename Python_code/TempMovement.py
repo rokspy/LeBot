@@ -4,7 +4,7 @@ from time import sleep
 
 class MainBoardMovement:
     def __init__(self):     # Initiate connection
-        self.ser = serial.Serial("COM3", timeout=0.03, baudrate=115200)
+        self.ser = serial.Serial("dev/ttyUSB0", timeout=0.03, baudrate=115200, bytesize=serial.EIGHTBITS, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE)
         self.wheels = [0, 0, 0]
 
     def update_wheel_speed(self, w1, w2, w3):   # Also serves to store wheel speeds if further use needed.
