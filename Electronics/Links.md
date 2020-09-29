@@ -15,3 +15,5 @@ Wheel motor datasheet     https://www.pololu.com/file/0J1736/pololu-37d-metal-ge
 Texas Instruments brushed DC motor drivers        https://www.ti.com/motor-drivers/brushed-dc-bdc-drivers/products.html?pqs=paqs&familyid=2005#p248=5;10
 
 Github page for MainBoard Coms        https://github.com/gutnar/pwir-template/blob/master/tutorials/mainboard%20communication/testing-mainboard-communication.md
+
+Setup for MianBoard serial Coms          https://digilabor.ut.ee/index.php/Basketball_robot_mainboard_2018
