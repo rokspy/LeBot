@@ -1,14 +1,10 @@
-# It works, just need to verify port and check that serial actually does what intended.
-# For changing port go to def __init__(self) and change self.ser = serial.Serial("HERE", ...)
-# "COM1, COM2, ... or /dev/xxxx
-
 import serial
 from time import sleep
 
 
 class MainBoardMovement:
     def __init__(self):     # Initiate connection
-        self.ser = serial.Serial("/dev/xxxx", timeout=0.03, baudrate=115200)
+        self.ser = serial.Serial("COM3", timeout=0.03, baudrate=115200)
         self.wheels = [0, 0, 0]
 
     def update_wheel_speed(self, w1, w2, w3):   # Also serves to store wheel speeds if further use needed.
