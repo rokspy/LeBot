@@ -17,3 +17,5 @@ Texas Instruments brushed DC motor drivers        https://www.ti.com/motor-drive
 Github page for MainBoard Coms        https://github.com/gutnar/pwir-template/blob/master/tutorials/mainboard%20communication/testing-mainboard-communication.md
 
 Setup for MianBoard serial Coms          https://digilabor.ut.ee/index.php/Basketball_robot_mainboard_2018
+
+Battery Reverse Volt Prot       https://www.infineon.com/dgdl/Reverse-Batery-Protection-Rev2.pdf?fileId=db3a304412b407950112b41887722615
