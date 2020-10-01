@@ -5,7 +5,7 @@ import re
 
 class MainBoardMovement:
     def __init__(self):  # Initiate connection
-        self.ser = serial.Serial("/dev/cu.usbmodem01234567891", timeout=0.03, baudrate=115200,
+        self.ser = serial.Serial("/dev/ttyACM0", timeout=0.03, baudrate=115200,
                                  bytesize=serial.EIGHTBITS,
                                  parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE)
         self.wheels = [0, 0, 0]
@@ -52,11 +52,11 @@ class MainBoardMovement:
         self.ser_write_wheel()
 
     def rotate_left(self, t):
-        self.set_wheel_speed(t, 0, 0)
+        self.set_wheel_speed(t, -t, -t)
         self.ser_write_wheel()
 
     def rotate_right(self, t):
-        self.set.wheel_speed(0, t, 0)
+        self.set_wheel_speed(-t, t, t)
         self.ser_write_wheel()
 
     def send_string(self, text):
@@ -66,3 +66,6 @@ class MainBoardMovement:
 
 # Debugging Section.
 LeBot = MainBoardMovement()
+if __name__ == '__main__':
+	LeBot.rotate_right(50)
+
