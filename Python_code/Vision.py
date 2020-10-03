@@ -1,11 +1,12 @@
 import numpy as np
 import cv2
 import pyrealsense2 as rs
+import json
 
 
 class ImageProcessing:
 
-    def __init__(self,color):
+    def __init__(self, basket_color):
         self.width = 1280
         self.height = 720
         self.pipeline = rs.pipeline()
@@ -20,83 +21,99 @@ class ImageProcessing:
 
         self.hsv = None
 
-        self.basketColor = "blue"
-        self.basketCoord = [0, 0, 0, 0]
+        # For depth calculations
+        self.depth_sensor = self.profile.get_device().first_depth_sensor()
+        self.depth_image_array = None
+        self.depth_scale = None
 
-    def find_basket(self):
-        area = 0
-        if self.basketColor == "blue":
-            while area < 40:    # Placeholder value
-                hl, sl, vl = 10, 10, 10
-                hu, su, vu = 20, 20, 20
+        # Store the mask from functions
+        self.basket_mask = None
+        self.ball_mask = None
 
-                l_blue = np.array([hl, sl, vl])
-                u_blue = np.array([hu, su, vu])
+        # Assign color value
+        self.color = basket_color
+        self.red_parameters = None
+        self.blue_parameters = None
+        self.green_parameters = None
+        self.set_color_parameters()
 
-                blue_mask = cv2.inRange(self.hsv, l_blue, u_blue)
+        # Store ball centroid
+        self.ball_centroid = None
 
-                b_basket_contours, hierarchy = cv2.findContours(blue_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-                b_cnt = b_basket_contours[0]
-                area = cv2.contourArea(b_cnt)
-                x1, y1, w, h = cv2.boundingRect(b_cnt)
-                x2, y2 = x1 + w, y1 + h
+        # Store basket centroid
+        self.basket_centroid = None
 
-        if self.basketColor == "red":
-            while area < 40:
-                hl, sl, vl = 100, 10, 10
-                hu, su, vu = 209, 20, 20
-
-                l_red = np.array([hl, sl, vl])
-                u_red = np.array([hu, su, vu])
-
-                red_mask = cv2.inRange(self.hsv, l_red, u_red)
-
-                r_basket_contours, hierarchy = cv2.findContours(red_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-                r_cnt = r_basket_contours[0]
-                area = cv2.contourArea(r_cnt)
-                x1, y1, w, h = cv2.boundingRect(r_cnt)
-                x2, y2 = x1 + w, y1 + h
-        else:
-            print("Problem assigning basket")
-            x1, y1, x2, y2 = None, None, None, None
-
-        self.basketCoord = np.array([x1, x2, y1, y2])
-
-    def is_ball_biggest(self):   #Might be better to avoid masking once again if I do mask beforehand.
-        %
-
-        l_green = np.array([130, 30, 100])
-        u_green = np.array([125, 255, 200])
-        green_mask = cv2.inRange(self.hsv, l_green, u_green)
-
-        #Should return location or mask with biggest blob.
-
-    def getArea(self):    #Might be useless. Better to add in isBallBiggest
-
-
-
-
-    def getImage(self):
-
+    def get_image(self):    # Purpose: get hsv image
         frames = self.pipeline.wait_for_frames()
         aligned_frames = self.align.process(frames)
-
-        aligned_depth_frame = aligned_frames.get_depth_frame()
         color_frame = aligned_frames.get_color_frame()
-
-        depth_image_array = np.asanyarray(aligned_depth_frame.get_data())
         frame_array = np.asanyarray(color_frame.get_data())
 
-        self.hsv = cv2.cvtColor(frame_array, cv2.COLOR_BGR2HSV)     #Maybe not ideal as will have to update each usage and can forget to update.
+        self.hsv = cv2.cvtColor(frame_array, cv2.COLOR_BGR2HSV)
 
-    def getDepth(self, x, y, w, h):
-        depth_sensor = self.profile.get_device().first_depth_sensor()
-        depth_scale = depth_sensor.get_depth_scale()
+    def get_basket_color_mask(self):    # Purpose: get color mask (pre image processing)
+        self.get_image()    # To update hsv
 
-    def maskImage(self, array):
-        m_color_frame = self.hsv.copy()
+        if self.color == 'red':
+            self.basket_mask = cv2.inRange(self.hsv, self.red_parameters['min'], self.red_parameters['max'])
+        if self.color == 'blue':
+            self.basket_mask = cv2.inRange(self.hsv, self.blue_parameters['min'], self.blue_parameters['max'])
 
+    def get_basket_centroid(self):  # Purpose: distance debugging
+        self.get_basket_color_mask()    # To update basket_mask
 
+        basket_image, contours, hierarchy = cv2.findContours(self.basket_mask, cv2.RETR_EXTERNAL,
+                                                             cv2.CHAIN_APPROX_SIMPLE)
+        biggest_cnt = 0
+        points = None
 
+        for cnt in contours:
+            cnt_size = cv2.contourArea(cnt)
+            if cnt_size > biggest_cnt:
+                points = cnt_size
 
-        dist = np.average(depth_image[y:y + w, x:x + h]) * depth_scale
+        M = cv2.moments(points)
+        cX = int(M["m10"] / M["m00"])
+        cY = int(M["m01"] / M["m00"])
+        self.basket_centroid = [cX, cY]
+
+    def get_depth_image_array(self):
+        frames = self.pipeline.wait_for_frames()
+        aligned_frames = self.align.process(frames)
+        aligned_depth_frame = aligned_frames.get_depth_frame()
+        self.depth_image_array = np.asanyarray(aligned_depth_frame.get_data())
+        self.depth_scale = self.depth_sensor.get_depth_scale()
+
+    def get_depth_to(self, obj_mask):
+        # depth = np.bitwise_and(self.depth_image_array, obj_mask) * self.depth_scale
+        depth: float = self.depth_image_array(obj_mask) * self.depth_scale
+        return depth
+
+    def get_ball_mask(self):
+        self.get_image()    # To update hsv
+
+        self.ball_mask = cv2.inRange(self.hsv, self.green_parameters['min'], self.green_parameters['max'])
+
+    def get_ball_centroid(self):
+        self.get_ball_mask()
+
+        ball_image, contours, hierarchy = cv2.findContours(self.ball_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        biggest_cnt = 0
+        points = None
+
+        for cnt in contours:
+            cnt_size = cv2.contourArea(cnt)
+            if cnt_size > biggest_cnt:
+                points = cnt_size
+
+        M = cv2.moments(points)
+        cX = int(M["m10"] / M["m00"])
+        cY = int(M["m01"] / M["m00"])
+        self.ball_centroid = [cX, cY]
+
+    def set_color_parameters(self):
+        with open('color_parameters.json') as f:
+            d = json.load(f)
+        self.red_parameters = d['red']
+        self.blue_parameters = d['blue']
+        self.green_parameters = d['green']
