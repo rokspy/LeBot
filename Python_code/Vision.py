@@ -118,4 +118,3 @@ class ImageProcessing:
 
     def stop_all(self):
         self.pipeline.stop()
-        pass
