@@ -21,11 +21,6 @@ class ImageProcessing:
 
         self.hsv = None
 
-        # For depth calculations
-        self.depth_sensor = self.profile.get_device().first_depth_sensor()
-        self.depth_image_array = None
-        self.depth_scale = None
-
         # Store the mask from functions
         self.basket_mask = None
         self.ball_mask = None
@@ -35,7 +30,7 @@ class ImageProcessing:
         self.red_parameters = None
         self.blue_parameters = None
         self.green_parameters = None
-        self.set_color_parameters()
+        self.set_color_parameters()  # To forget about it :)
 
         # Store ball centroid
         self.ball_centroid = None
@@ -43,16 +38,32 @@ class ImageProcessing:
         # Store basket centroid
         self.basket_centroid = None
 
-    def get_image(self):    # Purpose: get hsv image
+        # Depth stuff
+        self.depth_sensor = self.profile.get_device().first_depth_sensor()
+        self.depth_scale = self.depth_sensor.get_depth_scale()
+        self.aligned_depth_frame = None
+        self.color_frame = None
+
+    def get_image(self):  # Purpose: get hsv image
         frames = self.pipeline.wait_for_frames()
         aligned_frames = self.align.process(frames)
         color_frame = aligned_frames.get_color_frame()
         frame_array = np.asanyarray(color_frame.get_data())
+        self.aligned_depth_frame = aligned_frames.get_depth_frame()
 
         self.hsv = cv2.cvtColor(frame_array, cv2.COLOR_BGR2HSV)
 
-    def get_basket_color_mask(self):    # Purpose: get color mask (pre image processing)
-        self.get_image()    # To update hsv
+    def get_depth_from_mask(self, obj_mask):
+        self.get_image()
+
+        depth_image = np.asanyarray(self.aligned_depth_frame.get_data())
+        mask_array_mask = depth_image[obj_mask > 0]
+
+        dist = np.average(mask_array_mask) * self.depth_scale
+        return dist
+
+    def get_basket_color_mask(self):  # Purpose: get color mask (pre image processing)
+        self.get_image()  # To update hsv
 
         if self.color == 'red':
             self.basket_mask = cv2.inRange(self.hsv, self.red_parameters['min'], self.red_parameters['max'])
@@ -60,10 +71,9 @@ class ImageProcessing:
             self.basket_mask = cv2.inRange(self.hsv, self.blue_parameters['min'], self.blue_parameters['max'])
 
     def get_basket_centroid(self):  # Purpose: distance debugging
-        self.get_basket_color_mask()    # To update basket_mask
+        self.get_basket_color_mask()  # To update basket_mask
 
-        basket_image, contours, hierarchy = cv2.findContours(self.basket_mask, cv2.RETR_EXTERNAL,
-                                                             cv2.CHAIN_APPROX_SIMPLE)
+        basket_image, contours, hrchy = cv2.findContours(self.basket_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         biggest_cnt = 0
         points = None
 
@@ -77,20 +87,8 @@ class ImageProcessing:
         cY = int(M["m01"] / M["m00"])
         self.basket_centroid = [cX, cY]
 
-    def get_depth_image_array(self):
-        frames = self.pipeline.wait_for_frames()
-        aligned_frames = self.align.process(frames)
-        aligned_depth_frame = aligned_frames.get_depth_frame()
-        self.depth_image_array = np.asanyarray(aligned_depth_frame.get_data())
-        self.depth_scale = self.depth_sensor.get_depth_scale()
-
-    def get_depth_to(self, obj_mask):
-        # depth = np.bitwise_and(self.depth_image_array, obj_mask) * self.depth_scale
-        depth: float = self.depth_image_array(obj_mask) * self.depth_scale
-        return depth
-
     def get_ball_mask(self):
-        self.get_image()    # To update hsv
+        self.get_image()  # To update hsv
 
         self.ball_mask = cv2.inRange(self.hsv, self.green_parameters['min'], self.green_parameters['max'])
 
@@ -117,3 +115,7 @@ class ImageProcessing:
         self.red_parameters = d['red']
         self.blue_parameters = d['blue']
         self.green_parameters = d['green']
+
+    def stop_all(self):
+        self.pipeline.stop()
+        pass
