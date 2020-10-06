@@ -1,6 +1,7 @@
 import serial
 from time import sleep
 import re
+from math import atan2, sqrt, cos
 
 
 class MainBoardMovement:
@@ -9,6 +10,15 @@ class MainBoardMovement:
                                  bytesize=serial.EIGHTBITS,
                                  parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE)
         self.wheels = [0, 0, 0]
+
+        # Omnidirectional Movement
+        self.wheelSpeedToMainboardUnits = None  # Must calculate from gearboxReductionRatio * encoderEdgesPerMotorRevolution / (2 * PI * wheelRadius * pidControlFrequency)
+        self.wheelAngle = [0, 120, 240]
+        self.robotSpeed = 0
+        self.wheelDistanceFromCenter = None
+        self.robotAngularVelocity = None
+        self.wheelLinearVelocity = [None, None, None]
+        self.wheelAngularSpeedMainboardUnits = [None, None, None]
 
     def set_wheel_speed(self, w1, w2, w3):  # Does not send command.    Has range of -250 and 250
         self.wheels = [w1, w2, w3]
@@ -63,9 +73,22 @@ class MainBoardMovement:
         sot = "rf:{0}\n".format(str(text))
         self.ser.write(sot.encode('utf-8'))
 
+    def send_omni(self):
+        sot = ("sd:{0}:{1}:{2}\n".format(str(self.wheelLinearVelocity[0]), str(self.wheelLinearVelocity[1]), 
+                                         str(self.wheelLinearVelocity[2])))
+        self.ser.write(sot.encode('utf-8'))
 
-# Debugging Section.
-LeBot = MainBoardMovement()
-if __name__ == '__main__':
-	LeBot.rotate_right(50)
+    def calculate_omni(self, robotSpeedX, robotSpeedY):
+        try:
+            robotDirectionAngle = atan2(robotSpeedY, robotSpeedX)
+        except:
+            robotDirectionAngle = 0.01
 
+        robotSpeed = sqrt(robotSpeedX * robotSpeedX + robotSpeedY * robotSpeedY)
+        wheelLinearVelocity = [None, None, None]
+
+        for i in range(3):
+            self.wheelLinearVelocity[i] = robotSpeed * cos(robotDirectionAngle - self.wheelAngle[i]) \
+                                     + self.wheelDistanceFromCenter * self.robotAngularVelocity
+
+            self.wheelAngularSpeedMainboardUnits[i] = wheelLinearVelocity[i] * self.wheelSpeedToMainboardUnits
