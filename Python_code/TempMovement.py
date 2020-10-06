@@ -73,8 +73,8 @@ class MainBoardMovement:
         sot = "rf:{0}\n".format(str(text))
         self.ser.write(sot.encode('utf-8'))
 
-    def send_omni(self):
-        sot = ("sd:{0}:{1}:{2}\n".format(str(self.wheelLinearVelocity[0]), str(self.wheelLinearVelocity[1]), 
+    def ser_write_omni(self):
+        sot = ("sd:{0}:{1}:{2}\n".format(str(self.wheelLinearVelocity[0]), str(self.wheelLinearVelocity[1]),
                                          str(self.wheelLinearVelocity[2])))
         self.ser.write(sot.encode('utf-8'))
 
@@ -85,10 +85,13 @@ class MainBoardMovement:
             robotDirectionAngle = 0.01
 
         robotSpeed = sqrt(robotSpeedX * robotSpeedX + robotSpeedY * robotSpeedY)
-        wheelLinearVelocity = [None, None, None]
 
         for i in range(3):
             self.wheelLinearVelocity[i] = robotSpeed * cos(robotDirectionAngle - self.wheelAngle[i]) \
                                      + self.wheelDistanceFromCenter * self.robotAngularVelocity
 
-            self.wheelAngularSpeedMainboardUnits[i] = wheelLinearVelocity[i] * self.wheelSpeedToMainboardUnits
+            self.wheelAngularSpeedMainboardUnits[i] = self.wheelLinearVelocity[i] * self.wheelSpeedToMainboardUnits
+
+
+# Debugging Section.
+LeBot = MainBoardMovement()
