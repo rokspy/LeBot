@@ -6,3 +6,4 @@ List of items:
 _____________________________________________
 Sep 8th; Intel Realsense Camera; Paul Matute
 Oct 6th; PC + power adapter; Paul Matute
+Oct 9th; PC + power adapter + Intel Realsense Camera; Box
