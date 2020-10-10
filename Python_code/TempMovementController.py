@@ -22,7 +22,7 @@ class MainBoardMovement:
         self.wheelAngularSpeedMainBoardUnits = [None, None, None]
 
         # Controller interaction
-        self.PS4 = MyController(Controller)
+        self.PS4 = MyController
         self.PS4 = MyController(interface="/dev/input/js0", connecting_using_ds4drv=False)
         self.PS4.listen(timeout=60)
 
@@ -101,7 +101,7 @@ class MainBoardMovement:
             self.wheelAngularSpeedMainBoardUnits[i] = self.wheelLinearVelocity[i] * self.wheelSpeedToMainBoardUnits
 
 
-class MyController(Controller):  # Only Linux... uses Ubuntu package joystick
+class MyController(Controller):
     def __init__(self, **kwargs):
         Controller.__init__(self, **kwargs)
         self.myVal = 5
@@ -115,31 +115,16 @@ class MyController(Controller):  # Only Linux... uses Ubuntu package joystick
     def on_up_arrow_press(self):
         LeBot.move_forward(self.myVal)
 
-    def on_up_arrow_release(self):
-        LeBot.wheel_speed_zero()
-        LeBot.ser_write_wheel()
-
     def on_down_arrow_press(self):
         LeBot.move_backward(self.myVal)
-
-    def on_down_arrow_release(self):
-        LeBot.wheel_speed_zero()
-        LeBot.ser_write_wheel()
 
     def on_left_arrow_press(self):
         LeBot.rotate_left(self.myVal)
 
-    def on_left_arrow_release(self):
-        LeBot.wheel_speed_zero()
-        LeBot.ser_write_wheel()
-
     def on_right_arrow_press(self):
         LeBot.rotate_left(self.myVal)
-
-    def on_right_arrow_release(self):
-        LeBot.wheel_speed_zero()
-        LeBot.ser_write_wheel()
 
 
 # Debugging Section.
 LeBot = MainBoardMovement()
+LeBot.MyController(Controller)
