@@ -21,11 +21,6 @@ class MainBoardMovement:
         self.wheelLinearVelocity = [None, None, None]
         self.wheelAngularSpeedMainBoardUnits = [None, None, None]
 
-        # Controller interaction
-        self.PS4 = MyController
-        self.PS4 = MyController(interface="/dev/input/js0", connecting_using_ds4drv=False)
-        self.PS4.listen(timeout=60)
-
     def set_wheel_speed(self, w1, w2, w3):  # Does not send command.    Has range of -250 and 250
         self.wheels = [w1, w2, w3]
 
@@ -101,6 +96,13 @@ class MainBoardMovement:
             self.wheelAngularSpeedMainBoardUnits[i] = self.wheelLinearVelocity[i] * self.wheelSpeedToMainBoardUnits
 
 
+class MyRobotControl:
+    def __init__(self):
+        self.PS4 = MyController
+        self.PS4 = MyController(interface="/dev/input/js0", connecting_using_ds4drv=False)
+        self.PS4.listen(timeout=60)
+
+
 class MyController(Controller):
     def __init__(self, **kwargs):
         Controller.__init__(self, **kwargs)
@@ -113,18 +115,22 @@ class MyController(Controller):
         self.myVal = self.myVal - 1
 
     def on_up_arrow_press(self):
-        LeBot.move_forward(self.myVal)
+        value = self.myVal
+        MainBoardMovement.move_forward(self, value)
 
     def on_down_arrow_press(self):
-        LeBot.move_backward(self.myVal)
+        value = self.myVal
+        MainBoardMovement.move_backward(self, value)
 
     def on_left_arrow_press(self):
-        LeBot.rotate_left(self.myVal)
+        value = self.myVal
+        MainBoardMovement.rotate_left(self, value)
 
     def on_right_arrow_press(self):
-        LeBot.rotate_left(self.myVal)
+        value = self.myVal
+        MainBoardMovement.rotate_right(self, value)
 
 
 # Debugging Section.
-LeBot = MainBoardMovement()
-LeBot.MyController(Controller)
+LeBot = MainBoardMovement
+LeBotController = MyRobotControl
