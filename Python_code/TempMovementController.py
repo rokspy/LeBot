@@ -2,7 +2,11 @@ import serial
 from time import sleep
 import re
 from math import atan2, sqrt, cos
-from pyPS4Controller.controller import Controller
+import getch
+
+
+# "/dev/cu.usbmodem01234567891"
+# "/dev/ttyACM0"
 
 
 class MainBoardMovement:
@@ -13,13 +17,13 @@ class MainBoardMovement:
         self.wheels = [0, 0, 0]
 
         # Omnidirectional Movement
-        self.wheelSpeedToMainBoardUnits = None  # = gearboxReductionRatio * encoderEdgesPerMotorRevolution / (2 * PI * wheelRadius * pidControlFrequency)
+        self.wheelSpeedToMainboardUnits = None  # Must calculate from gearboxReductionRatio * encoderEdgesPerMotorRevolution / (2 * PI * wheelRadius * pidControlFrequency)
         self.wheelAngle = [0, 120, 240]
         self.robotSpeed = 0
         self.wheelDistanceFromCenter = None
         self.robotAngularVelocity = None
         self.wheelLinearVelocity = [None, None, None]
-        self.wheelAngularSpeedMainBoardUnits = [None, None, None]
+        self.wheelAngularSpeedMainboardUnits = [None, None, None]
 
     def set_wheel_speed(self, w1, w2, w3):  # Does not send command.    Has range of -250 and 250
         self.wheels = [w1, w2, w3]
@@ -79,58 +83,34 @@ class MainBoardMovement:
                                          str(self.wheelLinearVelocity[2])))
         self.ser.write(sot.encode('utf-8'))
 
-    def calculate_omni(self, robotspeedx, robotspeedy):
+    def calculate_omni(self, robotSpeedX, robotSpeedY):
         try:
-            robotDirectionAngle = atan2(robotspeedy, robotspeedx)
-
+            robotDirectionAngle = atan2(robotSpeedY, robotSpeedX)
         except:
             robotDirectionAngle = 0.01
-            print('Running exception for calculate_omni. Using 0.01 for robotDirectionAngle')
 
-        robotSpeed = sqrt(robotspeedx * robotspeedx + robotspeedy * robotspeedy)
+        robotSpeed = sqrt(robotSpeedX * robotSpeedX + robotSpeedY * robotSpeedY)
 
         for i in range(3):
             self.wheelLinearVelocity[i] = robotSpeed * cos(robotDirectionAngle - self.wheelAngle[i]) \
                                           + self.wheelDistanceFromCenter * self.robotAngularVelocity
 
-            self.wheelAngularSpeedMainBoardUnits[i] = self.wheelLinearVelocity[i] * self.wheelSpeedToMainBoardUnits
+            self.wheelAngularSpeedMainboardUnits[i] = self.wheelLinearVelocity[i] * self.wheelSpeedToMainboardUnits
 
-
-class MyRobotControl:
-    def __init__(self):
-        self.PS4 = MyController
-        self.PS4 = MyController(interface="/dev/input/js0", connecting_using_ds4drv=False)
-        self.PS4.listen(timeout=60)
-
-
-class MyController(Controller):
-    def __init__(self, **kwargs):
-        Controller.__init__(self, **kwargs)
-        self.myVal = 5
-
-    def on_x_press(self):
-        self.myVal = self.myVal + 1
-
-    def on_square_press(self):
-        self.myVal = self.myVal - 1
-
-    def on_up_arrow_press(self):
-        value = self.myVal
-        MainBoardMovement.move_forward(self, value)
-
-    def on_down_arrow_press(self):
-        value = self.myVal
-        MainBoardMovement.move_backward(self, value)
-
-    def on_left_arrow_press(self):
-        value = self.myVal
-        MainBoardMovement.rotate_left(self, value)
-
-    def on_right_arrow_press(self):
-        value = self.myVal
-        MainBoardMovement.rotate_right(self, value)
+    def pycharm_keyboard_input(self):
+        char = '1'
+        while char != 'q':
+            char = getch.getch()
+            if char == 'w':
+                self.move_forward(10)
+            elif char == 's':
+                self.move_backward(10)
+            elif char == 'd':
+                self.rotate_left(10)
+            elif char == 'a':
+                self.rotate_right(10)
 
 
 # Debugging Section.
-LeBot = MainBoardMovement
-LeBotController = MyRobotControl
+LeBot = MainBoardMovement()
+LeBot.pycharm_keyboard_input()
