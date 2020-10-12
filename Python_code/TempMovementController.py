@@ -11,7 +11,7 @@ import getch
 
 class MainBoardMovement:
     def __init__(self):  # Initiate connection
-        self.ser = serial.Serial("/dev/ttyACM0", timeout=0.03, baudrate=115200,
+        self.ser = serial.Serial("/dev/cu.usbmodem01234567891", timeout=0.03, baudrate=115200,
                                  bytesize=serial.EIGHTBITS,
                                  parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE)
         self.wheels = [0, 0, 0]
@@ -99,18 +99,34 @@ class MainBoardMovement:
 
     def pycharm_keyboard_input(self):
         char = '1'
+        spd = 10
         while char != 'q':
             char = getch.getch()
             if char == 'w':
-                self.move_forward(10)
+                self.move_forward(20)
             elif char == 's':
-                self.move_backward(10)
+                self.move_backward(20)
             elif char == 'd':
-                self.rotate_left(10)
+                self.rotate_left(20)
             elif char == 'a':
-                self.rotate_right(10)
+                self.rotate_right(20)
+            elif char == 'z':   # Motor 0
+                self.set_wheel_speed(spd, 0, 0)
+                self.ser_write_wheel()
+            elif char == 'x':   # Motor 1
+                self.set_wheel_speed(0, spd, 0)
+                self.ser_write_wheel()
+            elif char == 'c':   # Motor 2
+                self.set_wheel_speed(0, 0, spd)
+                self.ser_write_wheel()
+            elif char == 'e':
+                spd = spd + 5
+            elif char == 'q':
+                spd = spd - 5
 
 
 # Debugging Section.
 LeBot = MainBoardMovement()
 LeBot.pycharm_keyboard_input()
+
+
