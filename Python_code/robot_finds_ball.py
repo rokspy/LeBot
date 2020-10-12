@@ -3,7 +3,7 @@ from TempMovement import MainBoardMovement
 
 See = ImageProcessing
 Move = MainBoardMovement
-x_mid = 1280
+x_mid = 1280 / 2
 x_range = 10
 rot_quickness = 5
 
@@ -19,7 +19,7 @@ while True:
             Move.rotate_left(rot_quickness)
         continue
 
-    elif BallCentroid == None:
+    elif BallCentroid is None:
         Move.rotate_right(rot_quickness)
         continue
 
