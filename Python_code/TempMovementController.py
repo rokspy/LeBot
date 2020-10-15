@@ -6,8 +6,9 @@ import getch
 import cv2
 
 
-# "/dev/cu.usbmodem01234567891"
-# "/dev/ttyACM0"
+# "/dev/cu.usbmodem01234567891" # on Mac
+# "/dev/ttyACM0" # On PC
+# "COM3" # on Windows
 
 
 class MainBoardMovement:
