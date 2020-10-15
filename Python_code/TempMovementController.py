@@ -3,6 +3,7 @@ from time import sleep
 import re
 from math import atan2, sqrt, cos
 import getch
+import cv2
 
 
 # "/dev/cu.usbmodem01234567891"
@@ -119,14 +120,36 @@ class MainBoardMovement:
             elif char == 'c':   # Motor 2
                 self.set_wheel_speed(0, 0, spd)
                 self.ser_write_wheel()
-            elif char == 'e':
-                spd = spd + 5
-            elif char == 'q':
-                spd = spd - 5
+
+    def cv2_keyboard_input(self):
+        cv2.namedWindow("Movement")
+        spd = 10
+        while True:
+            if cv2.waitKey(0) & 0xFF == ord('q'):
+                break
+            elif cv2.waitKey(0) & 0xFF == ord('a'):
+                self.rotate_left(spd)
+            elif cv2.waitKey(0) & 0xFF == ord('d'):
+                self.rotate_right(spd)
+            elif cv2.waitKey(0) & 0xFF == ord('w'):
+                self.move_forward(spd)
+            elif cv2.waitKey(0) & 0xFF == ord('s'):
+                self.move_backward(spd)
+            elif cv2.waitKey(0) & 0xFF == ord('z'):
+                self.set_wheel_speed(spd, 0, 0)
+                self.ser_write_wheel()
+            elif cv2.waitKey(0) & 0xFF == ord('x'):
+                self.set_wheel_speed(0, spd, 0)
+                self.ser_write_wheel()
+            elif cv2.waitKey(0) & 0xFF == ord('c'):
+                self.set_wheel_speed(0, 0, spd)
+                self.ser_write_wheel()
+            elif cv2.waitKey(0) & 0xFF == ord('c'):
+                self.set_wheel_speed(0, 0, spd)
+                self.ser_write_wheel()
 
 
-# Debugging Section.
+
 LeBot = MainBoardMovement()
-LeBot.pycharm_keyboard_input()
-
-
+LeBot.cv2_keyboard_input()
+# LeBot.pycharm_keyboard_input()
