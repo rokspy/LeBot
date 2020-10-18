@@ -13,7 +13,7 @@ from pyPS4Controller.controller import Controller
 
 class MainBoardMovement:
     def __init__(self):  # Initiate connection
-        self.ser = serial.Serial("/dev/cu.usbmodem01234567891", timeout=0.03, baudrate=115200,
+        self.ser = serial.Serial("/dev/ttyACM0", timeout=0.03, baudrate=115200,
                                  bytesize=serial.EIGHTBITS,
                                  parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE)
         self.wheels = [0, 0, 0]
@@ -84,7 +84,7 @@ class MainBoardMovement:
         self.set_wheel_speed(0, t, 0)
         self.ser_write_wheel()
 
-    def move_wheel_2(self,t):
+    def move_wheel_2(self, t):
         self.set_wheel_speed(0, 0, t)
         self.ser_write_wheel()
 
@@ -124,13 +124,12 @@ class MainBoardMovement:
                 self.rotate_right(20)
             elif char == 'a':
                 self.rotate_left(20)
-            elif char == 'z':   # Motor 0
+            elif char == 'z':  # Motor 0
                 self.move_wheel_0(20)
-            elif char == 'x':   # Motor 1
+            elif char == 'x':  # Motor 1
                 self.move_wheel_1(20)
-            elif char == 'c':   # Motor 2
+            elif char == 'c':  # Motor 2
                 self.move_wheel_2(20)
-
 
     def cv2_keyboard_input(self):
         cv2.namedWindow("Movement")
@@ -154,6 +153,37 @@ class MainBoardMovement:
                 self.move_wheel_2(spd)
 
 
+class MyController(Controller):
+    def __init__(self, **kwargs):
+        Controller.__init__(self, **kwargs)
+        self.speed = 20
+
+    def on_x_press(self):
+        self.speed = self.speed - 5
+
+    def on_square_press(self):
+        self.speed = self.speed + 5
+
+    def on_up_arrow_press(self):
+        LeBot.move_forward(self.speed)
+
+    def on_down_arrow_press(self):
+        LeBot.move_backward(self.speed)
+
+    def on_left_arrow_press(self):
+        LeBot.rotate_left(self.speed)
+
+    def on_right_arrow_press(self):
+        LeBot.rotate_right(self.speed)
+
+    def on_options_press(self):
+        exit()
+
+
+
 LeBot = MainBoardMovement()
+
+controller = MyController(interface="/dev/input/js0", connecting_using_ds4drv=False)
+controller.listen(timeout=10)
 # LeBot.cv2_keyboard_input()
-LeBot.pycharm_keyboard_input()
+# LeBot.pycharm_keyboard_input()
