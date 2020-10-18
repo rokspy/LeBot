@@ -4,11 +4,11 @@ import re
 from math import atan2, sqrt, cos
 import getch
 import cv2
+from pyPS4Controller.controller import Controller
 
 
-# "/dev/cu.usbmodem01234567891" # on Mac
-# "/dev/ttyACM0" # On PC
-# "COM3" # on Windows
+# "/dev/cu.usbmodem01234567891"
+# "/dev/ttyACM0"
 
 
 class MainBoardMovement:
@@ -69,11 +69,23 @@ class MainBoardMovement:
         self.ser_write_wheel()
 
     def rotate_left(self, t):
-        self.set_wheel_speed(t, -t, -t)
+        self.set_wheel_speed(-t, -t, -t)
         self.ser_write_wheel()
 
     def rotate_right(self, t):
-        self.set_wheel_speed(-t, t, t)
+        self.set_wheel_speed(t, t, t)
+        self.ser_write_wheel()
+
+    def move_wheel_0(self, t):
+        self.set_wheel_speed(t, 0, 0)
+        self.ser_write_wheel()
+
+    def move_wheel_1(self, t):
+        self.set_wheel_speed(0, t, 0)
+        self.ser_write_wheel()
+
+    def move_wheel_2(self,t):
+        self.set_wheel_speed(0, 0, t)
         self.ser_write_wheel()
 
     def send_string(self, text):
@@ -109,18 +121,16 @@ class MainBoardMovement:
             elif char == 's':
                 self.move_backward(20)
             elif char == 'd':
-                self.rotate_left(20)
-            elif char == 'a':
                 self.rotate_right(20)
+            elif char == 'a':
+                self.rotate_left(20)
             elif char == 'z':   # Motor 0
-                self.set_wheel_speed(spd, 0, 0)
-                self.ser_write_wheel()
+                self.move_wheel_0(20)
             elif char == 'x':   # Motor 1
-                self.set_wheel_speed(0, spd, 0)
-                self.ser_write_wheel()
+                self.move_wheel_1(20)
             elif char == 'c':   # Motor 2
-                self.set_wheel_speed(0, 0, spd)
-                self.ser_write_wheel()
+                self.move_wheel_2(20)
+
 
     def cv2_keyboard_input(self):
         cv2.namedWindow("Movement")
@@ -137,20 +147,13 @@ class MainBoardMovement:
             elif cv2.waitKey(0) & 0xFF == ord('s'):
                 self.move_backward(spd)
             elif cv2.waitKey(0) & 0xFF == ord('z'):
-                self.set_wheel_speed(spd, 0, 0)
-                self.ser_write_wheel()
+                self.move_wheel_0(spd)
             elif cv2.waitKey(0) & 0xFF == ord('x'):
-                self.set_wheel_speed(0, spd, 0)
-                self.ser_write_wheel()
+                self.move_wheel_1(spd)
             elif cv2.waitKey(0) & 0xFF == ord('c'):
-                self.set_wheel_speed(0, 0, spd)
-                self.ser_write_wheel()
-            elif cv2.waitKey(0) & 0xFF == ord('c'):
-                self.set_wheel_speed(0, 0, spd)
-                self.ser_write_wheel()
-
+                self.move_wheel_2(spd)
 
 
 LeBot = MainBoardMovement()
-LeBot.cv2_keyboard_input()
-# LeBot.pycharm_keyboard_input()
+# LeBot.cv2_keyboard_input()
+LeBot.pycharm_keyboard_input()
