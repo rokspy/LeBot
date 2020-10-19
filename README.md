@@ -8,3 +8,11 @@ Document your work and results...
 Create folders, which are meant for specific things, such as CAD folder for mech
 anical designs and so on...
 
+===
+
+To connect via SSH from your computer to the PC and run the bluetooth controller:
+
+> ssh lebot@lebot
+""" accept RSA key fingerprint """
+> sudo python3 /home/lebot/Desktop/TempMovementController.py
+""" run TempMovementController and use the controller to move the robot, amke sure it's paired """
