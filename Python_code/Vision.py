@@ -32,11 +32,10 @@ class ImageProcessing:
         self.green_parameters = None
         self.set_color_parameters()  # To forget about it :)
 
-        # Store ball centroid
+        # Centroid
         self.ball_centroid = None
-
-        # Store basket centroid
         self.basket_centroid = None
+        self.orientation_range = 10
 
         # Depth stuff
         self.depth_sensor = self.profile.get_device().first_depth_sensor()
@@ -44,7 +43,7 @@ class ImageProcessing:
         self.aligned_depth_frame = None
         self.color_frame = None
 
-    def get_image(self):  # Purpose: get hsv image
+    def get_image(self):
         frames = self.pipeline.wait_for_frames()
         aligned_frames = self.align.process(frames)
         color_frame = aligned_frames.get_color_frame()
@@ -66,14 +65,14 @@ class ImageProcessing:
         self.get_image()  # To update hsv
 
         if self.color == 'red':
-            self.basket_mask = cv2.inRange(self.hsv, self.red_parameters['min'], self.red_parameters['max'])
+            self.basket_mask = cv2.inRange(self.hsv, tuple(self.red_parameters['min']), tuple(self.red_parameters['max']))
         if self.color == 'blue':
-            self.basket_mask = cv2.inRange(self.hsv, self.blue_parameters['min'], self.blue_parameters['max'])
+            self.basket_mask = cv2.inRange(self.hsv, tuple(self.blue_parameters['min']), tuple(self.blue_parameters['max']))
 
     def get_basket_centroid(self):  # Purpose: distance debugging
         self.get_basket_color_mask()  # To update basket_mask
 
-        basket_image, contours, hrchy = cv2.findContours(self.basket_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        basket_image, contours = cv2.findContours(self.basket_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         biggest_cnt = 0
         points = None
 
@@ -88,26 +87,32 @@ class ImageProcessing:
         self.basket_centroid = [cX, cY]
 
     def get_ball_mask(self):
-        self.get_image()  # To update hsv
-
-        self.ball_mask = cv2.inRange(self.hsv, self.green_parameters['min'], self.green_parameters['max'])
+        self.get_image()
+        self.ball_mask = cv2.inRange(self.hsv, tuple(self.green_parameters['min']), tuple(self.green_parameters['max']))
 
     def get_ball_centroid(self):
         self.get_ball_mask()
-
-        ball_image, contours, hierarchy = cv2.findContours(self.ball_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-        biggest_cnt = 0
-        points = None
-
-        for cnt in contours:
-            cnt_size = cv2.contourArea(cnt)
-            if cnt_size > biggest_cnt:
-                points = cnt_size
-
-        M = cv2.moments(points)
-        cX = int(M["m10"] / M["m00"])
-        cY = int(M["m01"] / M["m00"])
-        self.ball_centroid = [cX, cY]
+        kernel = np.ones((5, 5), np.uint8)
+        closing = cv2.morphologyEx(self.ball_mask, cv2.MORPH_CLOSE, kernel)
+        center = None
+        i = 0
+        while True:
+            i = i + i
+            cnts = cv2.findContours(closing.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)[-2]
+            if len(cnts) > 0:  # Check for something
+                c = max(cnts, key=cv2.contourArea)
+                ((cx, cy), r) = cv2.minEnclosingCircle(c)
+                M = cv2.moments(c)
+                if r > 10:  # Second validation
+                    self.ball_centroid = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
+                    break
+                else:
+                    continue
+            elif i == 240:
+                print('Could not get centroid after 240 frames')
+                break
+            else:
+                continue
 
     def set_color_parameters(self):
         with open('color_parameters.json') as f:
@@ -118,3 +123,13 @@ class ImageProcessing:
 
     def stop_all(self):
         self.pipeline.stop()
+        pass
+
+    def rotate_to(self):
+        self.get_ball_centroid()
+        dif = self.ball_centroid[0] - (self.width / 2)
+        return dif
+
+    def return_basket_centroid(self):
+        self.get_basket_centroid()
+        return self.basket_centroid
