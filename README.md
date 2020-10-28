@@ -15,4 +15,4 @@ To connect via SSH from your computer to the PC and run the bluetooth controller
 > ssh lebot@lebot
 """ accept RSA key fingerprint """
 > sudo python3 /home/lebot/Desktop/TempMovementController.py
-""" run TempMovementController and use the controller to move the robot, amke sure it's paired """
+""" run TempMovementController and use the controller to move the robot, make sure it's paired """
