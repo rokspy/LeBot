@@ -1,0 +1,24 @@
+Output: Gerber Files
+Type  : Gerber
+From  : Variant [[No Variations]] of Project [LeBot.PrjPCB]
+   Generated File[LeBot.GTO]
+   Generated File[LeBot.GTP]
+   Generated File[LeBot.GTS]
+   Generated File[LeBot.GTL]
+   Generated File[LeBot.G1]
+   Generated File[LeBot.G2]
+   Generated File[LeBot.GBL]
+   Generated File[LeBot.GBS]
+   Generated File[LeBot.GBP]
+   Generated File[LeBot.GBO]
+   Generated File[LeBot.GM1]
+   Generated File[LeBot.GKO]
+   Generated File[LeBot.RUL]
+   Generated File[LeBot.EXTREP]
+   Generated File[LeBot.REP]
+
+
+Files Generated   : 15
+Documents Printed : 0
+
+Finished Output Generation At 5:28:05 AM On 11/8/2020
