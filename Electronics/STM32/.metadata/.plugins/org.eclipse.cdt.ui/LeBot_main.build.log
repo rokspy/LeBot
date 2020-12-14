@@ -1,0 +1,10 @@
+23:54:48 **** Incremental Build of configuration Debug for project LeBot_main ****
+make -j4 all 
+arm-none-eabi-size   LeBot_main.elf 
+   text	   data	    bss	    dec	    hex	filename
+   7760	     20	   2836	  10616	   2978	LeBot_main.elf
+Finished building: default.size.stdout
+ 
+
+23:54:48 Build Finished. 0 errors, 0 warnings. (took 622ms)
+
