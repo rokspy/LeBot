@@ -1,0 +1,3 @@
+[submodule "ros_lebot"]
+	path = ros_lebot
+	url = https://github.com/napdot/ros_lebot
