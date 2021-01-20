@@ -19,3 +19,9 @@ Github page for MainBoard Coms        https://github.com/gutnar/pwir-template/bl
 Setup for MianBoard serial Coms          https://digilabor.ut.ee/index.php/Basketball_robot_mainboard_2018
 
 Battery Reverse Volt Prot       https://www.infineon.com/dgdl/Reverse-Batery-Protection-Rev2.pdf?fileId=db3a304412b407950112b41887722615
+
+DSHOT protocol                   https://oscarliang.com/dshot/
+
+Thrower motor datasheet          https://hobbyking.com/en_us/ntm-prop-drive-series-28-30s-900kv-270w-short-shaft-version.html
+
+Possible Buck-Converter         http://www.farnell.com/datasheets/1575789.pdf
