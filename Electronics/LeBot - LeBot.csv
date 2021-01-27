@@ -1,0 +1,36 @@
+Comment,Description,Designator,Footprint,Quantity,Mouser Order Number,Farnell Order Number
+,,,,,,
+1uF*V,Ceramic capacitor,"C1, C2, C7, C32",C0603,4,,
+10uF*V,Ceramic capacitor,"C3, C4, C9, C10, C13, C14, C19, C20, C21, C22, C28, C29",C0805,12,,
+100nF*V,Ceramic capacitor,"C5, C6, C11, C12, C15, C16, C18, C26, C27, C31",C0603,10,,
+10nF*V,Ceramic capacitor,C8,C0603,1,,
+4.7uF*V,Ceramic capacitor,C17,C0603,1,,
+22nF *V,Ceramic capacitor,"C23_WheelMot1, C23_WheelMot2, C23_WheelMot3",C0603,3,,
+100nF *V,Ceramic capacitor,"C24_WheelMot1, C24_WheelMot2, C24_WheelMot3, C25_WheelMot1, C25_WheelMot2, C25_WheelMot3",C0603,6,,
+100uF,Capacitor Polarised,"C30_WheelMot1, C30_WheelMot2, C30_WheelMot3",CAPPRD250W55D630H1220,3,,
+USBLC6-4,USB ESD Protection,D1,SOT-236,1,511-USBLC6-4SC6,1295311
+Red LED,Light Emitting Diode,"D2, D3, D4, D5",LED_0805,4,710-150080RS75000,1581239
+0437.375WR,Fuse,F1,FUSC3216X86N,1,576-0437.375WR,2752660
+215079-4,4 Position Receptacle Connector Through Hole,"J1_WheelMot1, J1_WheelMot2, J1_WheelMot3",TE_215079-4,3,,
+Connection_pad,,"J2, J3, J6_WheelMot1, J6_WheelMot2, J6_WheelMot3, J7_WheelMot1, J7_WheelMot2, J7_WheelMot3",Wire_Pad,8,,
+PIN_2x5,,JP1,1.27_2X5H,1,,
+PIN_1x3,,JP2,1.27_1X3H,1,,
+PIN_1x2,,JP3,1.27_1X2H,1,,
+Inductor,Inductor,L1,L73,1,,3526152
+BUK4D38-20P,P-Channel MOSFET,Q1,PMPB12EPX,1,771-BUK4D38-20PX,
+124k,Resistor,R1,R0603,1,,
+280R,Resistor,R2,R0603,1,,
+22k1,Resistor,R3,R0603,1,,
+700R,Resistor,"R4, R5",R0603,2,,
+10k,Resistor,"R7, R9_WheelMot1, R9_WheelMot2, R9_WheelMot3, R10_WheelMot1, R10_WheelMot2, R10_WheelMot3, R11_WheelMot1, R11_WheelMot2, R11_WheelMot3",R0603,10,,
+620R,Resistor,R8,R0603,1,,
+3k2,Resistor,"R13_WheelMot1, R13_WheelMot2, R13_WheelMot3",R0603,3,,
+100k,Resistor,R14,R0603,1,,
+EVQQ,Switch,S1,EVQQ,1,667-EVQ-Q2S03W,2860937
+MIC5504-3.3,Low-dropout voltage regulator,U1,SOT-235,1,998-MIC5504-3.3YM5T5,2810152
+TPS54227DDAR,"4.5-V to 18-V Input, 2-A SynchronousStep-DownConverter",U2,SOIC127P600X175-8N,1,595-TPS54227DDAR,-
+SI8620NB,"Digital Isolator, 2 Channel, 8 ns, 2.5 V, 5.5 V, NSOIC, 8 Pins",U3,SOIC127P600X175-8N,1,634-SI8620AB-B-IS,3387104
+STM32G431KB,"ARM MCU, STM32 Family STM32G4 Series Microcontrollers, ARM Cortex-M4F, 32bit, 170 MHz, 64 KB, 32 KB",U4,QFP80P900X900X160-32N,1,511-STM32G431K6T6,3132405
+DRV8874PWPR,DRV8874H-BridgeMotorDriverWith IntegratedCurrentSenseand Regulation,"U5_WheelMot1, U5_WheelMot2, U5_WheelMot3",SOP65P640X120-17N,3,595-DRV8874PWPR,-
+SI8660BB-B-IU_1,Low Power Six-Channel Digital Isolator,U6,SOP64P600X175-16N,1,634-SI8660BB-B-IU,3105912
+USB,,X1,USB MicroB Type 2.0,1,,
