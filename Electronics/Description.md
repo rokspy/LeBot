@@ -3,6 +3,11 @@ Lebot MainBoard consists of two separate parts, the logic part, which consists o
 
 Schematics for the LeBot MainBoard is in ![here](https://github.com/rokspy/LeBot/blob/master/Electronics/LeBot.pdf)
 
+BOM is available ![here](https://docs.google.com/spreadsheets/d/1_wtpbwSeCWU4Lbmwkv2j5hH5ZP4q_wZt4JYNAfwiaf8/edit#gid=1255650361)
+
+The Gerber files are available  ![here](https://github.com/rokspy/LeBot/tree/master/Electronics/Engineering%20Model/LeBot_B/Gerber)
+
+
 ## Logic Part 
 Logic part is powered by the incoming 5V over the USB, and is converted to 3.3V via a low-dropout regulator.
 \
