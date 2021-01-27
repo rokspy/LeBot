@@ -42,13 +42,13 @@ Motor Control part receives its power from the batteries.
 Motor Control Part consists of three motor driver ICs, 5V switching regulator, and connectors for the thrower motor and servo motor(not implemented in the design). Motor drivers receive pwm signal from the MCU through the isolator, and then controls the corresponding wheel motor with this PWM.\
 The switching regulator supplies the logic supply voltage for the motor drivers, and it was also meant for 5V supply for the servo motor, which was not implemented.\
 
-The pinout for the Servo Motor connector (JP3):/
-Pin1. - Serv_PWM_B/
-Pin2. - 5V_B/
+The pinout for the Servo Motor connector (JP3):\
+Pin1. - Serv_PWM_B\
+Pin2. - 5V_B\
 Pin3. - GND_B
 
-The pinout for the Thrower Motor connector (JP2):/
-Pin1. - THRW_PWM_B/
+The pinout for the Thrower Motor connector (JP2):\
+Pin1. - THRW_PWM_B\
 Pin2. - GND_B
 
 
