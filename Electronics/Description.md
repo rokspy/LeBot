@@ -1,2 +1,2 @@
 # Description of LeBot MainBoard
-Lebot MainBoard consists of two separate parts, the logic part, which consists of STM32G4 microcontroller and the motor driver, which manages the current path to the motors attached to Lebot.
+Lebot MainBoard consists of two separate parts, the logic part, which consists of STM32G4 microcontroller and the Motor Control, which manages the current path to the motors attached to LeBot. Both the MCU part and the Motor Control part are electrically isolated from ech other with digital isolators. These isolators carry PWM signals for the motor drivers. Microcontroller receives strings of data from the on-board PC, and converts these strings into corresponding signals for three wheel motors and one thrower motor. 
