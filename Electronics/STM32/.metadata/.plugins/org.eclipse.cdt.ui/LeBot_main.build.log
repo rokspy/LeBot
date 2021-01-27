@@ -1,10 +1,78 @@
-23:54:48 **** Incremental Build of configuration Debug for project LeBot_main ****
+17:39:52 **** Incremental Build of configuration Debug for project LeBot_main ****
 make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32G431xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../USB_Device/App -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../USB_Device/Target -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:179:49: warning: passing argument 3 of 'HAL_TIM_PWM_Start_DMA' from incompatible pointer type [-Wincompatible-pointer-types]
+   HAL_TIM_PWM_Start_DMA(&htim15, TIM_CHANNEL_1, dma_buf, 20);
+                                                 ^~~~~~~
+In file included from ../Core/Inc/stm32g4xx_hal_conf.h:343:0,
+                 from ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h:30,
+                 from ../Core/Inc/main.h:31,
+                 from ../Core/Src/main.c:21:
+../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim.h:2412:19: note: expected 'uint32_t * {aka long unsigned int *}' but argument is of type 'uint16_t * {aka short unsigned int *}'
+ HAL_StatusTypeDef HAL_TIM_PWM_Start_DMA(TIM_HandleTypeDef *htim, uint32_t Channel, uint32_t *pData, uint16_t Length);
+                   ^~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c: In function 'CDC_On_Receive':
+../Core/Src/main.c:732:10: warning: unused variable 'decimal_loc' [-Wunused-variable]
+  uint8_t decimal_loc = 100;
+          ^~~~~~~~~~~
+../Core/Src/main.c:731:9: warning: unused variable 'count' [-Wunused-variable]
+  int8_t count = 0;
+         ^~~~~
+../Core/Src/main.c:730:11: warning: unused variable 'temp' [-Wunused-variable]
+  uint16_t temp[3] = {0};
+           ^~~~
+../Core/Src/main.c:729:9: warning: unused variable 'direction' [-Wunused-variable]
+  int8_t direction[3] = {0};
+         ^~~~~~~~~
+../Core/Src/main.c:728:10: warning: unused variable 'motor_state' [-Wunused-variable]
+  uint8_t motor_state = 0;
+          ^~~~~~~~~~~
+../Core/Src/main.c: In function 'USB_command_translate':
+../Core/Src/main.c:883:43: warning: implicit declaration of function 'pow' [-Wimplicit-function-declaration]
+    temp[num_count] = sign*temp[num_count]/pow(10,3-count); //Finish up the previous number
+                                           ^~~
+../Core/Src/main.c:883:43: warning: incompatible implicit declaration of built-in function 'pow'
+../Core/Src/main.c:883:43: note: include '<math.h>' or provide a declaration of 'pow'
+../Core/Src/main.c:892:43: warning: incompatible implicit declaration of built-in function 'pow'
+    temp[num_count] = sign*temp[num_count]/pow(10,3-count); // Finsih up the previous number
+                                           ^~~
+../Core/Src/main.c:892:43: note: include '<math.h>' or provide a declaration of 'pow'
+../Core/Src/main.c:911:10: warning: return discards 'volatile' qualifier from pointer target type [-Wdiscarded-qualifiers]
+   return temp;
+          ^~~~
+../Core/Src/main.c:917:10: warning: return discards 'volatile' qualifier from pointer target type [-Wdiscarded-qualifiers]
+   return temp;
+          ^~~~
+../Core/Src/main.c:920:10: warning: return discards 'volatile' qualifier from pointer target type [-Wdiscarded-qualifiers]
+   return temp;
+          ^~~~
+../Core/Src/main.c: In function 'CDC_On_Receive':
+../Core/Src/main.c:738:15: warning: statement will never be executed [-Wswitch-unreachable]
+   USB_test[0] = 0;
+   ~~~~~~~~~~~~^~~
+../Core/Src/main.c: In function 'DMA_buf_load':
+../Core/Src/main.c:942:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+../Core/Src/main.c: In function 'CheckSum':
+../Core/Src/main.c:954:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+arm-none-eabi-gcc -o "LeBot_main.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\Projects\LeBot\Electronics\STM32\LeBot_main\STM32G431KBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="LeBot_main.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: LeBot_main.elf
+ 
+arm-none-eabi-objdump -h -S  LeBot_main.elf  > "LeBot_main.list"
+arm-none-eabi-objcopy  -O binary  LeBot_main.elf  "LeBot_main.bin"
 arm-none-eabi-size   LeBot_main.elf 
    text	   data	    bss	    dec	    hex	filename
-   7760	     20	   2836	  10616	   2978	LeBot_main.elf
+  50436	    548	   7836	  58820	   e5c4	LeBot_main.elf
 Finished building: default.size.stdout
  
+Finished building: LeBot_main.bin
+ 
+Finished building: LeBot_main.list
+ 
 
-23:54:48 Build Finished. 0 errors, 0 warnings. (took 622ms)
+17:39:59 Build Finished. 0 errors, 15 warnings. (took 6s.432ms)
 
